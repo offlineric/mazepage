@@ -155,6 +155,7 @@ d.addEventListener("DOMContentLoaded", function () {
 
 
           solvestep = function() {
+          if (document.DoneDoneDone == 0) {return false;}
           if (document.RunRunRun == 0) {
           X = 0;
           Y = 0;
