@@ -32,6 +32,32 @@ function checkdirections(x, y) {
     return directions;
 }
 
+function checksolve(x, y) {
+
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var directions = "";
+    var NpixelData = ctx.getImageData(10 * x, 10 * (y - 1), 1, 1).data;
+    var SpixelData = ctx.getImageData(10 * x, 10 * (y + 1), 1, 1).data;
+    var EpixelData = ctx.getImageData(10 * (x + 1), 10 * y, 1, 1).data;
+    var WpixelData = ctx.getImageData(10 * (x - 1), 10 * y, 1, 1).data;
+
+    if (NpixelData[0] == 255 && y > 0) {
+        directions = directions + "N";
+    }
+    if (SpixelData[0] == 255 && y < 50) {
+        directions = directions + "S";
+    }
+    if (EpixelData[0] == 255 && x < 50) {
+        directions = directions + "E";
+    }
+    if (WpixelData[0] == 255 && x > 0) {
+        directions = directions + "W";
+    }
+    return directions;
+}
+
 d.addEventListener("DOMContentLoaded", function () {
     d.removeEventListener("DOMContentLoaded", arguments.callee, false);
 
@@ -86,8 +112,88 @@ d.addEventListener("DOMContentLoaded", function () {
     if (document.DoneDoneDone == 0) {
         step();
     }
-
-
-
-
 });
+
+/*start pushing buttons here */
+        // Wait for the page to load first
+        window.onload = function() {
+
+          //Get a reference to the link on the page
+          // with an id of "mylink"
+          document.RunRunRun = 0;
+          var right = document.getElementById("turnRight");
+          var left = document.getElementById("turnLeft");
+          var up = document.getElementById("turnUp");
+          var down = document.getElementById("turnDown");
+          var solve = document.getElementById("solve");
+          var c = document.getElementById("myCanvas");
+          var ctx = c.getContext("2d");
+          right.onclick = function() {
+          var e = document.getElementById("myCanvas");
+          e.className='east';
+        //  alert('lol turning right');
+            return false;
+          }
+          left.onclick = function() {
+          var e = document.getElementById("myCanvas");
+          e.className='west';
+         // alert('lol turning right');
+            return false;
+          }
+          up.onclick = function() {
+          var e = document.getElementById("myCanvas");
+          e.className='north';
+         // alert('lol turning right');
+            return false;
+          }
+          down.onclick = function() {
+          var e = document.getElementById("myCanvas");
+          e.className='south';
+         // alert('lol turning right');
+            return false;
+          }
+
+
+          solvestep = function() {
+          if (document.RunRunRun == 0) {
+          X = 0;
+          Y = 0;
+          shistory = "Z";
+          document.RunRunRun = 1;
+          document.body.className = " start";
+          console.log('init');
+          }
+
+          ctx.fillStyle = "#a1b3ff";
+          drawbox(X,Y);
+          var ourDirections = checksolve(X,Y);
+
+          var go = ourDirections[0];
+
+          X = X + (go=="E") - (go=="W");
+          Y = Y + (go=="S") - (go=="N");
+          drawbox(X,Y);
+          
+        shistory = shistory + go;
+        ourDirections = checksolve(X,Y);
+
+        while (ourDirections.length == 0 && (X+Y  != 100)) {
+            go = shistory.slice(-1);
+            shistory = shistory.slice(0, shistory.length - 1);
+          ctx.fillStyle = "#fefefe";
+          drawbox(X,Y);
+          X = X - (go=="E") + (go=="W");
+          Y = Y - (go=="S") + (go=="N");
+            ourDirections = checksolve(X,Y);
+          //  alert("d= "+ourDirections + " go="+go+ " history=" + history);
+        }
+        if (X+Y == 100) { document.body.className = "start done"; }
+        if (X+Y != 100) {
+            var t = setTimeout(function () {
+                          //console.log('now x='+X+" now  y="+Y);
+                solvestep()
+            }, 1)          
+
+          }
+        }
+}

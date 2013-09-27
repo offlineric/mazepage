@@ -1,0 +1,47 @@
+body, html {
+    background:#e4e4e4;
+    height:100%;
+    min-height:100%;
+    margin:0;
+    padding:0;
+}
+
+#myCanvas {
+     border: none !important;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     margin-top: -255px;
+     margin-left: -255px;
+     border-radius: 5px;
+     border-top-left-radius: 0px;
+     border-bottom-right-radius: 0px;
+     transition: transform 1s ease;
+}
+
+.right {transform: rotateZ(90deg);}
+.left {transform: rotateZ(-90deg);}
+body::before {
+     font-size: 0px;
+     content: "lol";
+     padding: 5px;
+     padding-left: 10px;
+     background: white;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     margin-top:-255px;
+     margin-left: -270px;
+}
+body::after {
+     font-size: 0px;
+     content: "lol";
+     padding: 5px;
+     padding-right: 10px;
+     background: white;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     margin-top:245px;
+     margin-left: 255px;
+}

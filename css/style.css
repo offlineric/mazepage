@@ -7,17 +7,56 @@ body, html {
 }
 
 #myCanvas {
-     border: none !important;
+     border: black 10px solid !important;
      position: fixed;
      top: 50%;
      left: 50%;
-     margin-top: -255px;
-     margin-left: -255px;
-     border-radius: 5px;
-     border-top-left-radius: 0px;
+     margin-top: -260px;
+     margin-left: -260px;
+
      border-bottom-right-radius: 0px;
+     transition: all 1s ease;
+}
+
+.east {-webkit-transform: rotate(90deg); transform: rotate(90deg);}
+.west {-webkit-transform: rotate(-90deg);transform: rotate(-90deg);}
+.north {-webkit-transform: rotate(0deg);transform: rotate(0deg):}
+.south {-webkit-transform: rotate(180deg);transform: rotate(180deg);}
+
+#turnRight, #turnLeft, #turnUp, #turnDown {display: none;}
+
+input { 
+color: white;
+font-family: sans;
+font-weight: 600;
+background: #a1b3ff;
+border-radius: 3px;
+padding: .2em;
+text-decoration: none;
+border: none;
+box-shadow: none;
+font-size: 12pt;
+width: 540px;
 
 }
+
+a {
+color: white;
+font-family: sans;
+font-weight: 600;
+background: #a1b3ff;
+border-radius: 3px;
+padding: .2em;
+text-decoration: none;
+margin: .2em;
+}
+input:hover, a:hover {background:#1e90ff; }
+
+input, #turnUp, #turnDown {position: fixed; top: 50%; left: 50%; text-align: center;}
+input {margin-top: 275px; margin-left: -265px;}
+#turnUp { width: 200px; margin-top: -290px; margin-left: -265px;}
+#turnDown { width: 200px; margin-top: -290px; margin-left: 70px;}
+
 body::before {
      font-size: 0px;
      content: "lol";
@@ -27,8 +66,9 @@ body::before {
      position: fixed;
      top: 50%;
      left: 50%;
-     margin-top:-255px;
-     margin-left: -270px;
+     margin-top:-250px;
+     margin-left: -260px;
+     z-index: 1;
 }
 body::after {
      font-size: 0px;
@@ -39,6 +79,8 @@ body::after {
      position: fixed;
      top: 50%;
      left: 50%;
-     margin-top:245px;
+     margin-top:250px;
      margin-left: 255px;
 }
+.done::after, .start::before {background: #a1b3ff;}
+
