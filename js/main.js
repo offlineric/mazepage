@@ -1,35 +1,71 @@
 d = document;
 
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
 function drawbox(x, y) {
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     ctx.fillRect(10 * x, 10 * y, 10, 10);
 }
 
+function matrix(rows, cols, defaultValue) { //usage: varName = matrix (16, 10, 0); 
+    //will create a 2 dimensional array of rows and columns
+    var arr = []; //filled with default value
+
+    // Creates all lines:
+    for (var i = 0; i < rows; i++) {
+
+        // Creates an empty line
+        arr.push([]);
+
+        // Adds cols to the empty line:
+        arr[i].push(new Array(cols));
+
+        for (var j = 0; j < cols; j++) {
+            // Initializes:
+            arr[i][j] = defaultValue;
+        }
+    }
+
+    return arr;
+}
+
 function checkdirections(x, y) {
 
 
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    var directions = "";
-    var NpixelData = ctx.getImageData(10 * x, 10 * (y - 2), 1, 1).data;
-    var SpixelData = ctx.getImageData(10 * x, 10 * (y + 2), 1, 1).data;
-    var EpixelData = ctx.getImageData(10 * (x + 2), 10 * y, 1, 1).data;
-    var WpixelData = ctx.getImageData(10 * (x - 2), 10 * y, 1, 1).data;
 
-    if (NpixelData[0] == 0 && y > 0) {
+    var directions = "";
+try {
+ var NpixelData = board[x][y-2];
+ var SpixelData = board[x][y+2];
+ var EpixelData = board[x+2][y];
+ var WpixelData = board[x-2][y];
+    }
+    catch (err) {
+     //for when we check -2s
+    } 
+    if (NpixelData == 0 && y > 0) {
         directions = directions + "N";
     }
-    if (SpixelData[0] == 0 && y < 50) {
+    if (SpixelData == 0 && y < 50) {
         directions = directions + "S";
     }
-    if (EpixelData[0] == 0 && x < 50) {
+    if (EpixelData == 0 && x < 50) {
         directions = directions + "E";
     }
-    if (WpixelData[0] == 0 && x > 0) {
+    if (WpixelData == 0 && x > 0) {
         directions = directions + "W";
-    }
+    } 
+
     return directions;
+
 }
 
 function checksolve(x, y) {
@@ -43,16 +79,16 @@ function checksolve(x, y) {
     var EpixelData = ctx.getImageData(10 * (x + 1), 10 * y, 1, 1).data;
     var WpixelData = ctx.getImageData(10 * (x - 1), 10 * y, 1, 1).data;
 
-    if (NpixelData[0] == 255 && y > 0) {
+    if (NpixelData[1] == 255 && y > 0) {
         directions = directions + "N";
     }
-    if (SpixelData[0] == 255 && y < 50) {
+    if (SpixelData[1] == 255 && y < 50) {
         directions = directions + "S";
     }
-    if (EpixelData[0] == 255 && x < 50) {
+    if (EpixelData[1] == 255 && x < 50) {
         directions = directions + "E";
     }
-    if (WpixelData[0] == 255 && x > 0) {
+    if (WpixelData[1] == 255 && x > 0) {
         directions = directions + "W";
     }
     return directions;
@@ -70,6 +106,7 @@ d.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = "#ffffff";
     var xPos = 1;
     var yPos = 1;
+    board = matrix (55, 55, 0);
     var history = "Z";
     document.DoneDoneDone = 0;
 
@@ -81,19 +118,25 @@ d.addEventListener("DOMContentLoaded", function () {
         oldx = xPos;
         oldy = yPos;
         go = ourDirections[Math.floor(Math.random() * ourDirections.length)];
-        drawbox(xPos, yPos);
+        
         xPos = xPos + (2 * (go == "E")) - (2 * (go == "W"));
         yPos = yPos + (2 * (go == "S")) - (2 * (go == "N"));
-        drawbox(xPos, yPos);
+        
         oldx = (oldx + xPos) / 2;
         oldy = (oldy + yPos) / 2;
-        drawbox(oldx, oldy);
+        
+        board [xPos][yPos] = 1;
+        board [oldx][oldy] = 1;
         history = history + go;
         ourDirections = checkdirections(xPos, yPos);
 
         while (ourDirections.length == 0 && document.DoneDoneDone == 0) {
             if (history.length == 1) {
                 document.DoneDoneDone = 1;
+                                for (var x=0; x < 51; x++) {
+                  for (var y=0; y < 51; y++) {
+                    if (board[x][y] == 1){
+                    drawbox(x,y); }; };}
             };
             go = history.slice(-1);
             history = history.slice(0, history.length - 1);
@@ -102,9 +145,8 @@ d.addEventListener("DOMContentLoaded", function () {
             ourDirections = checkdirections(xPos, yPos);
         }
         if (document.DoneDoneDone == 0) {
-            var t = setTimeout(function () {
-                step()
-            }, 1)
+            step();
+ //   requestAnimFrame(step)
 
 
         }
@@ -165,7 +207,7 @@ d.addEventListener("DOMContentLoaded", function () {
           console.log('init');
           }
 
-          ctx.fillStyle = "#a1b3ff";
+          ctx.fillStyle = "#ff0000";
           drawbox(X,Y);
           var ourDirections = checksolve(X,Y);
 
@@ -190,10 +232,12 @@ d.addEventListener("DOMContentLoaded", function () {
         }
         if (X+Y == 100) { document.body.className = "start done"; }
         if (X+Y != 100) {
-            var t = setTimeout(function () {
                           //console.log('now x='+X+" now  y="+Y);
+                //requestAnimFrame(solvestep)
+            var t = setTimeout(function () {
                 solvestep()
-            }, 1)          
+            }, 0)
+
 
           }
         }

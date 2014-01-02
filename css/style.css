@@ -1,5 +1,5 @@
 body, html {
-    background:#e4e4e4;
+    background:#ffffff;
     height:100%;
     min-height:100%;
     margin:0;
@@ -11,8 +11,8 @@ body, html {
      position: fixed;
      top: 50%;
      left: 50%;
-     margin-top: -260px;
-     margin-left: -260px;
+     margin-top: -265px;
+     margin-left: -265px;
 
      border-bottom-right-radius: 0px;
      transition: all 1s ease;
@@ -31,12 +31,14 @@ font-family: sans;
 font-weight: 600;
 background: #a1b3ff;
 border-radius: 3px;
+border-top-right-radius: 0px;
+border-top-left-radius: 0px;
 padding: .2em;
 text-decoration: none;
 border: none;
 box-shadow: none;
 font-size: 12pt;
-width: 540px;
+width: 530px;
 
 }
 
@@ -53,7 +55,7 @@ margin: .2em;
 input:hover, a:hover {background:#1e90ff; }
 
 input, #turnUp, #turnDown {position: fixed; top: 50%; left: 50%; text-align: center;}
-input {margin-top: 275px; margin-left: -265px;}
+input {margin-top: 265px; margin-left: -265px;}
 #turnUp { width: 200px; margin-top: -290px; margin-left: -265px;}
 #turnDown { width: 200px; margin-top: -290px; margin-left: 70px;}
 
@@ -66,8 +68,8 @@ body::before {
      position: fixed;
      top: 50%;
      left: 50%;
-     margin-top:-250px;
-     margin-left: -260px;
+     margin-top:-255px;
+     margin-left: -265px;
      z-index: 1;
 }
 body::after {
@@ -79,8 +81,8 @@ body::after {
      position: fixed;
      top: 50%;
      left: 50%;
-     margin-top:250px;
-     margin-left: 255px;
+     margin-top:245px;
+     margin-left: 250px;
 }
-.done::after, .start::before {background: #a1b3ff;}
+.done::after, .start::before {background: #ff0000;}
 
