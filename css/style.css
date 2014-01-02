@@ -1,88 +1,123 @@
-body, html {
-    background:#ffffff;
-    height:100%;
-    min-height:100%;
-    margin:0;
-    padding:0;
+body,html {
+background:#fff;
+height:100%;
+min-height:100%;
+margin:0;
+padding:0;
 }
 
 #myCanvas {
-     border: black 10px solid !important;
-     position: fixed;
-     top: 50%;
-     left: 50%;
-     margin-top: -265px;
-     margin-left: -265px;
-
-     border-bottom-right-radius: 0px;
-     transition: all 1s ease;
+border:#000 10px solid!important;
+position:fixed;
+top:50%;
+left:50%;
+margin-top:-265px;
+margin-left:-265px;
+border-bottom-right-radius:0;
+transition:all 1s ease;
 }
 
-.east {-webkit-transform: rotate(90deg); transform: rotate(90deg);}
-.west {-webkit-transform: rotate(-90deg);transform: rotate(-90deg);}
-.north {-webkit-transform: rotate(0deg);transform: rotate(0deg):}
-.south {-webkit-transform: rotate(180deg);transform: rotate(180deg);}
+.east {
+-webkit-transform:rotate(90deg);
+transform:rotate(90deg);
+}
 
-#turnRight, #turnLeft, #turnUp, #turnDown {display: none;}
+.west {
+-webkit-transform:rotate(-90deg);
+transform:rotate(-90deg);
+}
 
-input { 
-color: white;
-font-family: sans;
-font-weight: 600;
-background: #a1b3ff;
-border-radius: 3px;
-border-top-right-radius: 0px;
-border-top-left-radius: 0px;
-padding: .2em;
-text-decoration: none;
-border: none;
-box-shadow: none;
-font-size: 12pt;
-width: 530px;
+.north {
+-webkit-transform:rotate(0deg);
+transform:rotate(0deg):;
+}
 
+.south {
+-webkit-transform:rotate(180deg);
+transform:rotate(180deg);
+}
+
+#turnRight,#turnLeft,#turnUp,#turnDown {
+display:none;
+}
+
+input {
+color:#FFF;
+font-family:sans;
+font-weight:600;
+background:#a1b3ff;
+border-radius:3px;
+border-top-right-radius:0;
+border-top-left-radius:0;
+text-decoration:none;
+border:none;
+box-shadow:none;
+font-size:12pt;
+width:530px;
+margin-top:265px;
+margin-left:-265px;
+padding:.2em;
 }
 
 a {
-color: white;
-font-family: sans;
-font-weight: 600;
-background: #a1b3ff;
-border-radius: 3px;
-padding: .2em;
-text-decoration: none;
-margin: .2em;
+color:#FFF;
+font-family:sans;
+font-weight:600;
+background:#a1b3ff;
+border-radius:3px;
+text-decoration:none;
+margin:.2em;
+padding:.2em;
 }
-input:hover, a:hover {background:#1e90ff; }
 
-input, #turnUp, #turnDown {position: fixed; top: 50%; left: 50%; text-align: center;}
-input {margin-top: 265px; margin-left: -265px;}
-#turnUp { width: 200px; margin-top: -290px; margin-left: -265px;}
-#turnDown { width: 200px; margin-top: -290px; margin-left: 70px;}
+input:hover,a:hover {
+background:#1e90ff;
+}
+
+input,#turnUp,#turnDown {
+position:fixed;
+top:50%;
+left:50%;
+text-align:center;
+}
+
+#turnUp {
+width:200px;
+margin-top:-290px;
+margin-left:-265px;
+}
+
+#turnDown {
+width:200px;
+margin-top:-290px;
+margin-left:70px;
+}
 
 body::before {
-     font-size: 0px;
-     content: "lol";
-     padding: 5px;
-     padding-left: 10px;
-     background: white;
-     position: fixed;
-     top: 50%;
-     left: 50%;
-     margin-top:-255px;
-     margin-left: -265px;
-     z-index: 1;
+font-size:0;
+content:"lol";
+background:#FFF;
+position:fixed;
+top:50%;
+left:50%;
+margin-top:-255px;
+margin-left:-265px;
+z-index:1;
+padding:5px 5px 5px 10px;
 }
-body::after {
-     font-size: 0px;
-     content: "lol";
-     padding: 5px;
-     padding-right: 10px;
-     background: white;
-     position: fixed;
-     top: 50%;
-     left: 50%;
-     margin-top:245px;
-     margin-left: 250px;
-}
-.done::after, .start::before {background: #ff0000;}
 
+body::after {
+font-size:0;
+content:"lol";
+background:#FFF;
+position:fixed;
+top:50%;
+left:50%;
+margin-top:245px;
+margin-left:250px;
+padding:5px 10px 5px 5px;
+}
+
+.done::after,.start::before {
+background:red;
+}
